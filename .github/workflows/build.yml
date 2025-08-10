@@ -18,7 +18,9 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build Docker Image
-        run: docker build -t nxt-trendz-shoppe -f Dockerfile.dev .
+        # Builds the Docker image using your Dockerfile.dev
+        # Tags it with your Docker Hub username/repo and a unique ID, plus 'latest'
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/nxt-trendz-shoppe:${{ github.run_id }} -t ${{ secrets.DOCKER_USERNAME }}/nxt-trendz-shoppe:latest -f Dockerfile.dev .
 
       - name: Run Tests
         run: docker run --rm -e CI=true nxt-trendz-shoppe npm test
