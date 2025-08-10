@@ -9,6 +9,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm test
+
 # Set NODE_OPTIONS to allow legacy OpenSSL provider during the build
 RUN export NODE_OPTIONS=--openssl-legacy-provider && npm run build
 
